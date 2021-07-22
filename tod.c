@@ -79,6 +79,8 @@ TEST(t1) {
     t1.sec_BCD = 0x59;
     t1.min_BCD = 0x02;
     t1.hours_BCD_AMPM = 0x11;
+    // calc> 11*60*60*10 + (2*60 + 59)*10 + 9
+    // 397799
 
     t2.sectenths = 7;
     t2.sec_BCD = 0x59;
@@ -114,20 +116,24 @@ TEST(t1) {
     t.hours_BCD_AMPM = (0x01 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 63615);
     // Then from here on it was failing, aha, 16 bit unsigned limit to
-    // result:
+    // result. Added `(int32_t)` everywhere inside TOD_to_deciseconds
+    // and now it's fine:
     t.hours_BCD_AMPM = (0x02 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 99615);
     t.hours_BCD_AMPM = (0x09 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 351615);
     t.hours_BCD_AMPM = (0x11 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 423615);
+    t.hours_BCD_AMPM = (0x23 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 855615);
+    t.hours_BCD_AMPM = (0x11 | 1*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 855615);
     
-    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t1), 397799); */
-    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t2), 829800); */
-    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t3), 829790); */
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t1), 397799);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t2), 829797);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t3), 829787);
     
     ASSERT_EQ_(int32_t, TOD_diff(&t2, &t3), 863990);
     ASSERT_EQ_(int32_t, TOD_diff(&t3, &t2), 10);
-    // XX...
 };
 
