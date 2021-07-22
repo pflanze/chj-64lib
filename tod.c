@@ -113,6 +113,10 @@ TEST(t1) {
 
     t.hours_BCD_AMPM = (0x01 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 63615);
+    t.hours_BCD_AMPM = (0x02 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 99615);
+    t.hours_BCD_AMPM = (0x09 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 351615);
     t.hours_BCD_AMPM = (0x11 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 423615);
     
