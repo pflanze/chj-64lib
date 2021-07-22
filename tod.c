@@ -71,22 +71,33 @@ int32_t TOD_diff(const struct TOD *a, const struct TOD *b) {
 }
 
 TEST(t1) {
-    struct TOD t1, t2;
+    struct TOD t1, t2, t3;
 
     t1.sectenths = 9;
     t1.sec_BCD = 0x59;
     t1.min_BCD = 0x02;
     t1.hours_BCD_AMPM = 0x11;
 
-    t2.sectenths = 9;
+    t2.sectenths = 10;
     t2.sec_BCD = 0x59;
     t2.min_BCD = 0x02;
     t2.hours_BCD_AMPM = (0x11 | 128);
+
+    t3.sectenths = 10;
+    t3.sec_BCD = 0x58;
+    t3.min_BCD = 0x02;
+    t3.hours_BCD_AMPM = (0x11 | 128);
 
     ASSERT_EQ(TOD_hours_american(&t1), 11);
     ASSERT_EQ(TOD_hours_american(&t2), 11);
     ASSERT_EQ(TOD_hours_european(&t1), 11);
     ASSERT_EQ(TOD_hours_european(&t2), 23);
+
+    ASSERT_EQ(TOD_to_deciseconds(&t1), 397799);
+    ASSERT_EQ(TOD_to_deciseconds(&t2), 829800);
+    ASSERT_EQ(TOD_to_deciseconds(&t3), 829790);
+    
+    ASSERT_EQ(TOD_diff(&t2, &t3), -10);
     // XX...
 };
 
