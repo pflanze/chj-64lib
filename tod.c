@@ -19,7 +19,7 @@ void tod_init() {
 #define TOD_HOURS() PEEK(0xDC0B)
 
 unsigned char getTOD(struct TOD *out) {
-    // how the h* do I get the data atomically?
+    // how do I get the data atomically?
     unsigned char retries=0;
     while (1) {
         out->hours_BCD_AMPM = TOD_HOURS();
@@ -69,7 +69,6 @@ static const int32_t day_deciseconds = 24*60*60*10;
 int32_t TOD_diff(const struct TOD *a, const struct TOD *b) {
     int32_t d = TOD_to_deciseconds(b) - TOD_to_deciseconds(a);
     return d >= 0 ? d : d + day_deciseconds;
-    //return d;
 }
 
 TEST(t1) {
