@@ -64,7 +64,8 @@ int32_t TOD_to_deciseconds(const struct TOD *t) {
 static const int32_t day_deciseconds = 24*60*60*10;
 // (XX wonder if that works out. No skips nothing?)
 
-
+// This assumes that time stamp b is always taken after a. So if the
+// difference is negative, it must have wrapped around.
 int32_t TOD_diff(const struct TOD *a, const struct TOD *b) {
     int32_t d = TOD_to_deciseconds(b) - TOD_to_deciseconds(a);
     return d >= 0 ? d : d + day_deciseconds;
@@ -99,7 +100,8 @@ TEST(t1) {
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t2), 829800);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t3), 829790);
     
-    ASSERT_EQ_(int32_t, TOD_diff(&t2, &t3), -10);
+    ASSERT_EQ_(int32_t, TOD_diff(&t2, &t3), 863990);
+    ASSERT_EQ_(int32_t, TOD_diff(&t3, &t2), 10);
     // XX...
 };
 
