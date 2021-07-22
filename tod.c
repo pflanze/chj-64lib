@@ -55,10 +55,10 @@ void TOD_print(const struct TOD *t) {
 }
 
 int32_t TOD_to_deciseconds(const struct TOD *t) {
-    return (t->sectenths +
-            10 * (TOD_sec(t) +
-                  60 * (TOD_min(t) +
-                        60 * TOD_hours_european(t))));
+    return ((int32_t)TOD_dsec(t) +
+            10 * ((int32_t)TOD_sec(t) +
+                  60 * ((int32_t)TOD_min(t) +
+                        60 * (int32_t)TOD_hours_european(t))));
 }
 
 static const int32_t day_deciseconds = 24*60*60*10;
@@ -113,6 +113,8 @@ TEST(t1) {
 
     t.hours_BCD_AMPM = (0x01 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 63615);
+    // Then from here on it was failing, aha, 16 bit unsigned limit to
+    // result:
     t.hours_BCD_AMPM = (0x02 | 0*128);
     ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 99615);
     t.hours_BCD_AMPM = (0x09 | 0*128);
