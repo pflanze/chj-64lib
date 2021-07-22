@@ -73,19 +73,19 @@ int32_t TOD_diff(const struct TOD *a, const struct TOD *b) {
 }
 
 TEST(t1) {
-    struct TOD t1, t2, t3;
+    struct TOD t1, t2, t3, t;
 
     t1.sectenths = 9;
     t1.sec_BCD = 0x59;
     t1.min_BCD = 0x02;
     t1.hours_BCD_AMPM = 0x11;
 
-    t2.sectenths = 10;
+    t2.sectenths = 7;
     t2.sec_BCD = 0x59;
     t2.min_BCD = 0x02;
     t2.hours_BCD_AMPM = (0x11 | 128);
 
-    t3.sectenths = 10;
+    t3.sectenths = 7;
     t3.sec_BCD = 0x58;
     t3.min_BCD = 0x02;
     t3.hours_BCD_AMPM = (0x11 | 128);
@@ -95,10 +95,30 @@ TEST(t1) {
     ASSERT_EQ(TOD_hours_european(&t1), 11);
     ASSERT_EQ(TOD_hours_european(&t2), 23);
 
-    //XX lol need 32 bit now lol
-    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t1), 397799);
-    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t2), 829800);
-    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t3), 829790);
+    t.sectenths = 5;
+    t.sec_BCD = 0x00;
+    t.min_BCD = 0x00;
+    t.hours_BCD_AMPM = (0x00 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 5);
+
+    t.sec_BCD = 0x01;
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 15);
+
+    t.min_BCD = 0x01;
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 615);
+    t.min_BCD = 0x11;
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 6615);
+    t.min_BCD = 0x46;
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 27615);
+
+    t.hours_BCD_AMPM = (0x01 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 63615);
+    t.hours_BCD_AMPM = (0x11 | 0*128);
+    ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t), 423615);
+    
+    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t1), 397799); */
+    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t2), 829800); */
+    /* ASSERT_EQ_(int32_t, TOD_to_deciseconds(&t3), 829790); */
     
     ASSERT_EQ_(int32_t, TOD_diff(&t2, &t3), 863990);
     ASSERT_EQ_(int32_t, TOD_diff(&t3, &t2), 10);
