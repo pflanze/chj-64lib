@@ -11,6 +11,8 @@
  */
 
 void debug_init();
+void break_enable(); // included in debug_init()
+void break_disable();
 
 #define BREAK() asm("jsr break")
 // or named as in spaceInvaders:

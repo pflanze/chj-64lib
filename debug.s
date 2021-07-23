@@ -8,6 +8,8 @@
         .export		init_break
         .export		break
         .export         _debug_init
+        .export         _break_disable
+        .export         _break_enable
 
 
 ;; For triggering the VICE monitor, we need to jump to an address
@@ -24,15 +26,21 @@
 
 ;;; Run `x64 -initbreak 0x02FF ...` (decimal 767)
 
-break = $02FF
-
-init_break:
-        lda #$60                ; RTS opcode
-        sta break
-        rts
+break = $02FE
 
 _debug_init:
-        jmp init_break
+init_break:
+        lda #$60                ; RTS opcode
+        sta break+1
+_break_enable:
+        lda #$EA                ; NOP opcode
+        sta break+0
+        rts
+_break_disable:
+        lda #$60
+        sta break+0
+        rts
+        
 
 ;;; (breakonce idea, putting a nop in front of the break, and then
 ;;; changing that to rts, so it returns before reaching the break
