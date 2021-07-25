@@ -7,8 +7,11 @@
 
   If you start VICE without this option, calling the break/trap will
   have no effect.
-  
- */
+
+
+  To use from assembly, `jsr break`.
+
+*/
 
 void debug_init();
 void break_enable(); // included in debug_init()
