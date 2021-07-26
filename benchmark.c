@@ -18,13 +18,14 @@ int time_this(int(*f)(void*), void* ctx, uint16_t numiterations) {
     }
     getTOD(&end);
     printf("start: "); TOD_print(&start); printf("\r\n");
-    printf("  end: "); TOD_print(&end); printf("\r\n");
+    printf("  end: "); TOD_print(&end);
 #ifdef BENCHMARK_WARN
+    printf("\r\n");
     printf(" start = %li ds\r\n", TOD_to_deciseconds(&start));
     printf("   end = %li ds\r\n", TOD_to_deciseconds(&end));
 #endif
     d = TOD_diff(&start, &end);
-    printf("duration: %li /10 sec", d);
+    printf("  = %li/10 sec", d);
     return res;
 }
 
