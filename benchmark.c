@@ -9,7 +9,6 @@ void benchmark_init() {
 int time_this(int(*f)(void*), void* ctx, uint16_t numiterations) {
     struct TOD start, end;
     int res;
-    int32_t d;
     uint16_t i;
 
     getTOD(&start);
@@ -24,8 +23,17 @@ int time_this(int(*f)(void*), void* ctx, uint16_t numiterations) {
     printf(" start = %li ds\r\n", TOD_to_deciseconds(&start));
     printf("   end = %li ds\r\n", TOD_to_deciseconds(&end));
 #endif
-    d = TOD_diff(&start, &end);
-    printf("  = %li/10 sec", d);
+    {
+        int32_t d = TOD_diff(&start, &end);
+#ifdef BENCHMARK_DECISECONDS
+        d = TOD_diff(&start, &end);
+        printf("  = %li/10 sec", d);
+#else
+        int32_t d_s = d / 10;
+        int32_t d_ds = d % 10;
+        printf("  = %li.%li sec", d_s, d_ds);
+#endif
+    }
     return res;
 }
 
