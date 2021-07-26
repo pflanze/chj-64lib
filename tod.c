@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <chj-ctest/test.h>
 #include "tod.h"
 #include "util.h"
-#include "test.h"
 
 void __fastcall__ tod_calibrate(); // tod_init_s.s
 
