@@ -32,9 +32,11 @@ unsigned char getTOD(struct TOD *out) {
             (out->min_BCD == TOD_MINUTES()) &&
             (out->hours_BCD_AMPM == TOD_HOURS())
             ) {
+#ifdef TOD_WARN
             if (retries) {
                 WARN("getTOD: %i retry/ies", retries);
             }
+#endif
             return retries;
         }
         retries++;
