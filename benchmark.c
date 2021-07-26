@@ -6,14 +6,13 @@ void benchmark_init() {
     tod_init();
 }
 
-int time_this(int(*f)(void*), void* ctx, uint16_t numiterations) {
+int32_t time_this(void(*f)(void*), void* ctx, uint16_t numiterations) {
     struct TOD start, end;
-    int res;
     uint16_t i;
 
     getTOD(&start);
     for (i=0; i<numiterations; i++) {
-        res = f(ctx);
+        f(ctx);
     }
     getTOD(&end);
     printf("start: "); TOD_print(&start); printf("\r\n");
@@ -33,7 +32,7 @@ int time_this(int(*f)(void*), void* ctx, uint16_t numiterations) {
         int32_t d_ds = d % 10;
         printf(" = %li.%li sec", d_s, d_ds);
 #endif
+        return d;
     }
-    return res;
 }
 
