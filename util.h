@@ -1,7 +1,6 @@
 #ifndef _UTIL_H
 #define _UTIL_H
 
-#include "vm.h"
 /*
 static void poke(unsigned int addr, unsigned char val) {
     *((unsigned char*)addr) = val;
