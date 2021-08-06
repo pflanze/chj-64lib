@@ -2,6 +2,7 @@
 #define _UTIL_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 static void poke(unsigned int addr, unsigned char val) {
