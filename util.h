@@ -12,11 +12,15 @@ static unsigned char peek(unsigned int addr) {
 }
 */
 
+#ifdef __C64__
+
 #define POKE(addr, val) *((unsigned char*)(addr)) = val
 #define PEEK(addr) (*((unsigned char*)(addr)))
 #define BYTE(addr) (*((unsigned char*)(addr)))
 
 #define PTR(addr) ((void*)(addr))
+
+#endif
 
 #define WARN(msg, ...) printf(msg "\r\n", __VA_ARGS__)
 #define DIE(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); exit(1); } while(0)
