@@ -22,6 +22,14 @@ static unsigned char peek(unsigned int addr) {
 
 #endif
 
+
+#ifdef __C64__
+#define fastcall __fastcall__
+#else
+#define fastcall
+#endif
+
+
 #define WARN(msg, ...) printf(msg "\r\n", __VA_ARGS__)
 #define DIE(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); exit(1); } while(0)
 #define WARN_(msg) printf(msg "\r\n")
