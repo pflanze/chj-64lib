@@ -40,4 +40,8 @@ static unsigned char peek(unsigned int addr) {
 typedef unsigned char bool;
 
 
+#define IS_ODD(x) ((x) & 1)
+#define IS_EVEN(x) (! IS_ODD(x))
+
+
 #endif
