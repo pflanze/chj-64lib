@@ -26,8 +26,10 @@ static unsigned char peek(unsigned int addr) {
 
 #ifdef __C64__
 #define fastcall __fastcall__
+#define IS_C64 1
 #else
 #define fastcall
+#define IS_C64 0
 #endif
 
 
