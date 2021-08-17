@@ -30,6 +30,7 @@ static unsigned char peek(unsigned int addr) {
 # define fastcall __fastcall__
 # define IS_C64 1
 # include "_64lib_bool.h"
+# define UNUSED
 
 #else
 
@@ -41,6 +42,12 @@ static unsigned char peek(unsigned int addr) {
 
 # ifndef __cplusplus
 #  include "_64lib_bool.h"
+# endif
+
+# ifdef __GNUC__ /* GCC */
+#  define UNUSED __attribute__ ((unused))
+# else
+#  define UNUSED 
 # endif
 
 #endif
