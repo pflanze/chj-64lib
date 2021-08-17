@@ -25,20 +25,28 @@ static unsigned char peek(unsigned int addr) {
 
 
 #ifdef __C64__
-#  define fastcall __fastcall__
-#  define IS_C64 1
+
+# define ABORT() exit(1)
+# define fastcall __fastcall__
+# define IS_C64 1
 // XX better? enum? ?
 typedef unsigned char bool;
+
 #else
-#  define fastcall
-#  define IS_C64 0
+
+#include <stdlib.h>
+
+# define ABORT() abort()
+# define fastcall
+# define IS_C64 0
+
 #endif
 
 
 #define WARN(msg, ...) printf(msg "\r\n", __VA_ARGS__)
-#define DIE(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); exit(1); } while(0)
+#define DIE(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); ABORT(); } while(0)
 #define WARN_(msg) printf(msg "\r\n")
-#define DIE_(msg) do { printf(msg "\r\n"); exit(1); } while(0)
+#define DIE_(msg) do { printf(msg "\r\n"); ABORT(); } while(0)
 
 
 
