@@ -29,8 +29,7 @@ static unsigned char peek(unsigned int addr) {
 # define ABORT() exit(1)
 # define fastcall __fastcall__
 # define IS_C64 1
-// XX better? enum? ?
-typedef unsigned char bool;
+# include "_64lib_bool.h"
 
 #else
 
@@ -39,6 +38,10 @@ typedef unsigned char bool;
 # define ABORT() abort()
 # define fastcall
 # define IS_C64 0
+
+# ifndef __cplusplus
+#  include "_64lib_bool.h"
+# endif
 
 #endif
 
