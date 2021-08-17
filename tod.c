@@ -194,5 +194,5 @@ TEST(t1) {
     
     ASSERT_EQ_(int32_t, TOD_diff(&t2, &t3), 863990);
     ASSERT_EQ_(int32_t, TOD_diff(&t3, &t2), 10);
-};
+}
 
