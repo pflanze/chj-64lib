@@ -33,7 +33,9 @@ static unsigned char peek(unsigned int addr) {
 # define UNUSED
 # define NORETURN
 
+
 #else
+/* not C64 */
 
 #include <stdlib.h>
 
@@ -54,6 +56,7 @@ static unsigned char peek(unsigned int addr) {
 // #  include <stdnoreturn.h>
 #  define NORETURN _Noreturn
 # endif
+
 
 #endif
 
