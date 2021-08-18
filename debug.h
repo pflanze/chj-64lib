@@ -17,7 +17,18 @@ void debug_init();
 void break_enable(); // included in debug_init()
 void break_disable();
 
-#define BREAK() asm("jsr break")
-// or named as in spaceInvaders:
-#define TRAP() asm("jsr break")
+// some might call this TRAP instead
 
+#ifdef __C64__
+
+# define BREAK() asm("jsr break")
+
+#else
+// assuming POSIX
+
+#include <sys/types.h>
+#include <signal.h>
+
+#define BREAK() raise(SIGTRAP)
+
+#endif
