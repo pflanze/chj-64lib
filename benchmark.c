@@ -20,8 +20,8 @@ int32_t time_this(void(*f)(void*), void* ctx, uint16_t numiterations) {
     printf("  end: "); TOD_print(&end);
 #ifdef BENCHMARK_WARN
     printf("\r\n");
-    printf(" start = %" PRIi32 " ds\r\n", TOD_to_deciseconds(&start));
-    printf("   end = %" PRIi32 " ds\r\n", TOD_to_deciseconds(&end));
+    printf(" start = %" PRIi32 " ds\n", TOD_to_deciseconds(&start));
+    printf("   end = %" PRIi32 " ds\n", TOD_to_deciseconds(&end));
 #endif
     {
         int32_t d = TOD_diff(&start, &end);
