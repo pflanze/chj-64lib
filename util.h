@@ -66,6 +66,7 @@ static unsigned char peek(unsigned int addr) {
 #define WARN(msg) printf(msg "\r\n")
 #define DIE(msg) do { printf(msg "\r\n"); ABORT(); } while(0)
 
+#define newline() printf("\n")
 
 
 #define IS_ODD(x) ((x) & 1)
