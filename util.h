@@ -61,10 +61,10 @@ static unsigned char peek(unsigned int addr) {
 #endif
 
 
-#define WARN(msg, ...) printf(msg "\r\n", __VA_ARGS__)
-#define DIE(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); ABORT(); } while(0)
-#define WARN_(msg) printf(msg "\r\n")
-#define DIE_(msg) do { printf(msg "\r\n"); ABORT(); } while(0)
+#define WARN_(msg, ...) printf(msg "\r\n", __VA_ARGS__)
+#define DIE_(msg, ...) do { printf(msg "\r\n", __VA_ARGS__); ABORT(); } while(0)
+#define WARN(msg) printf(msg "\r\n")
+#define DIE(msg) do { printf(msg "\r\n"); ABORT(); } while(0)
 
 
 

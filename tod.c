@@ -36,7 +36,7 @@ unsigned char getTOD(struct TOD *out) {
             ) {
 #ifdef TOD_WARN
             if (retries) {
-                WARN("getTOD: %i retry/ies", retries);
+                WARN_("getTOD: %i retry/ies", retries);
             }
 #endif
             return retries;
@@ -60,7 +60,7 @@ static uint8_t int_to_BCD(uint8_t v) {
     v = v / 10;
     uint8_t d1 = v % 10;
     v = v / 10;
-    if (v) DIE("int_to_BCD: remainder after 2 digits: %i", v);
+    if (v) DIE_("int_to_BCD: remainder after 2 digits: %i", v);
     return d1*16 + d0;
 }
 
@@ -86,12 +86,12 @@ unsigned char getTOD(struct TOD *out) {
     struct timezone tz;
     if (gettimeofday(&tv, &tz)) {
         perror("gettimeofday");
-        DIE_("could not getTOD");
+        DIE("could not getTOD");
     }
     out->sectenths = tv.tv_usec / 100000;
     time_t tval = tv.tv_sec; /* sgh C lib */
     struct tm t;
-    if (! gmtime_r(&tval, &t)) DIE_("gmtime_r failed (can this even happen?)");
+    if (! gmtime_r(&tval, &t)) DIE("gmtime_r failed (can this even happen?)");
     out->sec_BCD = int_to_BCD(t.tm_sec);
     out->min_BCD = int_to_BCD(t.tm_min);
     out->hours_BCD_AMPM = int_to_BCD_AMPM(t.tm_hour); //XXX
