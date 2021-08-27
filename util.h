@@ -72,5 +72,9 @@ static unsigned char peek(unsigned int addr) {
 #define IS_ODD(x) ((x) & 1)
 #define IS_EVEN(x) (! IS_ODD(x))
 
+#define FREE(x) do {                            \
+        free(x);                                \
+        x = NULL;                               \
+    } while(0)
 
-#endif
+#endif /* _UTIL_H */
