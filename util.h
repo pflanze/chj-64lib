@@ -33,6 +33,7 @@ static unsigned char peek(unsigned int addr) {
 # define UNUSED
 # define NORETURN void
 
+# define INLINE static
 
 #else
 /* not C64 */
@@ -57,6 +58,7 @@ static unsigned char peek(unsigned int addr) {
 #  define NORETURN _Noreturn void
 # endif
 
+# define INLINE inline
 
 #endif
 
