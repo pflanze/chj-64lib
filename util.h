@@ -31,7 +31,7 @@ static unsigned char peek(unsigned int addr) {
 # define IS_C64 1
 # include "_64lib_bool.h"
 # define UNUSED
-# define NORETURN
+# define NORETURN void
 
 
 #else
@@ -49,12 +49,12 @@ static unsigned char peek(unsigned int addr) {
 
 # ifdef __GNUC__ /* GCC */
 #  define UNUSED __attribute__ ((unused))
-#  define NORETURN __attribute__((__noreturn__))
+#  define NORETURN __attribute__((__noreturn__)) void
 # else
 #warning "unknown compiler"
 #  define UNUSED 
 // #  include <stdnoreturn.h>
-#  define NORETURN _Noreturn
+#  define NORETURN _Noreturn void
 # endif
 
 
