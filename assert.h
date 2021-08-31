@@ -3,6 +3,10 @@
 
 #include <assert.h>
 
-#define ASSERT(x) assert(x)
+#ifndef RELEASE
+# define ASSERT(x) assert(x)
+#else
+# define ASSERT(x)
+#endif
 
 #endif /* ASSERT_H_ */
