@@ -32,8 +32,7 @@ static unsigned char peek(unsigned int addr) {
 # include "_64lib_bool.h"
 # define UNUSED
 # define NORETURN void
-
-# define INLINE static
+# define INLINE
 
 #else
 /* not C64 */
