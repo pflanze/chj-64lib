@@ -67,6 +67,12 @@ static unsigned char peek(unsigned int addr) {
 #define WARN(msg) printf(msg "\n")
 #define DIE(msg) do { printf(msg "\n"); ABORT(); } while(0)
 
+#ifdef VERBOSE
+# define IFVERBOSE(expr) expr
+#else
+# define IFVERBOSE(expr)
+#endif
+
 #define newline() printf("\n")
 
 
